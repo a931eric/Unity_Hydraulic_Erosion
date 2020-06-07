@@ -38,7 +38,7 @@ public class ctrl : MonoBehaviour
 
     public void GeneratePerlinNoise()
     {
-         HeightMapGenerator.Perlin(heightMap,w, h, perlin.pos, perlin.rot, perlin.scale);
+        HeightMapGenerator.Perlin(heightMap,w, h, perlin.pos, perlin.rot, perlin.scale);
         waterMap = new float[w, h];
         for (int x = 0; x < w; x++)
         {
@@ -113,7 +113,7 @@ public class ctrl : MonoBehaviour
         byte[] png = new byte[fs.Length];
         fs.Read(png, 0, (int)fs.Length);
         fs.Dispose();
-        heightMap = PNGToMap(png, 0, perlin.yScale);
+        heightMap = PNGToMap(heightMap,png, 0, perlin.yScale);
         waterMap = new float[w, h];
         Display();
     }
@@ -216,9 +216,8 @@ public class ctrl : MonoBehaviour
         o.Apply();
         return o.EncodeToPNG();
     }
-    float[,] PNGToMap(byte[] png, float min, float max, string mode = "GRAY")//uses global variables w and h
+    float[,] PNGToMap(float[,]o,byte[] png, float min, float max, string mode = "GRAY")//uses global variables w and h
     {
-        float[,] o = new float[w, h];
         Texture2D texture = new Texture2D(w, h);
         texture.LoadImage(png);
         if (mode == "GRAY")
@@ -289,7 +288,7 @@ public class ctrl : MonoBehaviour
         print("response:" + response);
         ResponseData responseData = JsonUtility.FromJson<ResponseData>(response);
         byte[] getData = await client.GetByteArrayAsync(getUrl + responseData.file_name + ".png");
-        heightMap = PNGToMap(getData, minmax[0], (minmax[1]- minmax[0])* ganScale+ minmax[0], mode: "RGB");
+        PNGToMap(heightMap,getData, minmax[0], (minmax[1]- minmax[0])* ganScale+ minmax[0], mode: "RGB");
         waterMap = new float[w, h];
         Display();
     }

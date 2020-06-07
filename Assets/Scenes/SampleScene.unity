@@ -272,8 +272,8 @@ MonoBehaviour:
       m_RotationOrder: 4
   displayMode: 1
   t: 238
-  postUrl: http://127.0.0.1:5001/generate
-  getUrl: http://127.0.0.1:5001/static/gen/
+  postUrl: http://140.115.51.160:52180/generate
+  getUrl: http://140.115.51.160:52180/static/gen/
   ganScale: 1
   postUrl_sat: http://127.0.0.1:5002/generate
   getUrl_sat: http://127.0.0.1:5002/static/gen/
