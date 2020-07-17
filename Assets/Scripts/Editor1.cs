@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-/*
+
 [CustomEditor(typeof(ctrl))]
 public class Editor1 : Editor {
 
@@ -85,4 +85,4 @@ public class Editor3 : Editor
     }
 }
 
-    */
+    

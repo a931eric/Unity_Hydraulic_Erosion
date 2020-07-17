@@ -275,8 +275,8 @@ MonoBehaviour:
   postUrl: http://140.115.51.160:52180/generate
   getUrl: http://140.115.51.160:52180/static/gen/
   ganScale: 1
-  postUrl_sat: http://127.0.0.1:5002/generate
-  getUrl_sat: http://127.0.0.1:5002/static/gen/
+  postUrl_sat: http://140.115.51.160:32188/generate
+  getUrl_sat: http://140.115.51.160:32188/static/gen/
   smoothness: 0.003
   updateDeltaFrame: 10
   drawWeight: 1
@@ -1688,7 +1688,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 867872558}
   m_LocalRotation: {x: 0.23370892, y: 0.6673681, z: -0.23370892, w: 0.6673681}
-  m_LocalPosition: {x: -11.8, y: 165.81, z: 229.6}
+  m_LocalPosition: {x: -82.2, y: 153.1, z: 132.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

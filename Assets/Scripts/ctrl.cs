@@ -276,7 +276,7 @@ public class ctrl : MonoBehaviour
     public async void HeightmapGAN()
     {
         float[] minmax = MinMax(heightMap);
-        string pngBase64 = Convert.ToBase64String(MapToPng(heightMap, minmax[0], minmax[1], mode: "RGB"));
+        string pngBase64 = Convert.ToBase64String(MapToPng(heightMap, minmax[0], minmax[1], mode: "GRAY"));
         HttpClient client = new HttpClient();
         client.Timeout = TimeSpan.FromSeconds(10);
         string response;
@@ -288,7 +288,7 @@ public class ctrl : MonoBehaviour
         print("response:" + response);
         ResponseData responseData = JsonUtility.FromJson<ResponseData>(response);
         byte[] getData = await client.GetByteArrayAsync(getUrl + responseData.file_name + ".png");
-        PNGToMap(heightMap,getData, minmax[0], (minmax[1]- minmax[0])* ganScale+ minmax[0], mode: "RGB");
+        PNGToMap(heightMap,getData, minmax[0], (minmax[1]- minmax[0])* ganScale+ minmax[0], mode: "GRAY");
         waterMap = new float[w, h];
         Display();
     }
@@ -299,7 +299,7 @@ public class ctrl : MonoBehaviour
     {
         
         float[] minmax = MinMax(heightMap);
-        string pngBase64 = Convert.ToBase64String(MapToPng(heightMap, minmax[0], minmax[1], mode: "RGB"));
+        string pngBase64 = Convert.ToBase64String(MapToPng(heightMap, minmax[0], minmax[1], mode: "GRAY"));
         HttpClient client = new HttpClient();
         client.Timeout = TimeSpan.FromSeconds(10);
         string response;
@@ -321,6 +321,15 @@ public class ctrl : MonoBehaviour
                 colorMap[i, j] = texture_c.GetPixel(i, j);
             }
         }
+        ResetChunks();
+        chunks[0, 0, 0].SetColor(colorMap);
+        int[] chunk_n = { Mathf.CeilToInt(w / (float)chunkSize), Mathf.CeilToInt(h / (float)chunkSize) };
+        for (int i = 0; i < chunk_n[0]; i++)
+            for (int j = 0; j < chunk_n[1]; j++)
+            {
+                chunks[i, j, 0].material = chunks[i, j, 0].forRealColor;
+                chunks[i, j, 0].material.SetTexture("_Texture", texture_c);
+            }
         Display();
     }
 
